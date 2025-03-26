@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import Navbar from "../components/Navbar";
 import RideList from "../components/RideList";
 import Introduction from "../components/Introduction";
+import About from "../components/About";
 
 function LoginPage() {
   return (
@@ -19,7 +20,7 @@ function LoginPage() {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
-          height: "90vh",
+          height: "100vh",
           position: "relative",
         }}
       >
@@ -61,9 +62,10 @@ function LoginPage() {
             zIndex: 1,
           }}
         >
-          <RideList heading={false} />
+          <RideList heading={false} homepage={true} />
         </Box>
       </Box>
+      <About />
     </Box>
   );
 }

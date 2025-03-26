@@ -33,7 +33,7 @@ function Introduction({ heading = true }) {
         <TextField
           variant="outlined"
           // label="From"
-          placeholder="27 Granville Road"
+          placeholder="Current Location"
           sx={{
             marginBottom: 2,
             marginRight: 4,
@@ -56,7 +56,7 @@ function Introduction({ heading = true }) {
         <TextField
           variant="outlined"
           // label="To"
-          placeholder="JJ street"
+          placeholder="Destination"
           sx={{
             marginBottom: 2,
             "& fieldset": {
@@ -82,7 +82,7 @@ function Introduction({ heading = true }) {
         sx={{
           bgcolor: "#70B994",
           height: "56px",
-          width: "100px",
+          width: "230px",
           fontSize: "18px",
           fontWeight: "500 !important",
           borderRadius: "10px",
@@ -90,7 +90,7 @@ function Introduction({ heading = true }) {
           my: 2,
         }}
       >
-        Search
+        Get Estimates
       </Button>
     </Box>
   );

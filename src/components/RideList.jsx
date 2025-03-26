@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Card, Button } from "@mui/material";
 
-function RideList({ heading = true }) {
+function RideList({ heading = true, homepage = false }) {
   const rides = [
     { name: "Bolt", price: "£5.34", cheapest: true, image: "bolt-logo.jpeg" },
     { name: "Uber", price: "£5.48", cheapest: false, image: "uber-logo.png" },
@@ -62,6 +62,7 @@ function RideList({ heading = true }) {
             <Typography sx={{ fontWeight: "bold" }}>{ride.price}</Typography>
             <Button
               variant="outlined"
+              disabled={homepage}
               sx={{
                 borderColor: "#6EB995", // Set border color
                 color: "#6EB995", // Set text color

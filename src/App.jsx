@@ -29,8 +29,8 @@ function App() {
       <Router>
         <Box>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/home" element={<LoginPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/" element={<LoginPage />} />
           </Routes>
         </Box>
       </Router>

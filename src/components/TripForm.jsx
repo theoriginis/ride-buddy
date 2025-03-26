@@ -26,7 +26,7 @@ function TripForm() {
         fullWidth
         variant="outlined"
         // label="From"
-        defaultValue="27 Granville Road"
+        placeholder="Current Location"
         sx={{
           marginBottom: 2,
           "& fieldset": {
@@ -52,7 +52,7 @@ function TripForm() {
         fullWidth
         variant="outlined"
         // label="To"
-        defaultValue="JJ street"
+        placeholder="Destination"
         sx={{
           marginBottom: 2,
           "& fieldset": {
