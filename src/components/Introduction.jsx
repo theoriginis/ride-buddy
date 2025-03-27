@@ -13,7 +13,8 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
 // Replace with your actual Mapbox Access Token
-const MAPBOX_ACCESS_TOKEN = "sk.eyJ1IjoibWFyd2FuYWJhcmlzIiwiYSI6ImNtOHE4NDZ1OTBpaWoya3F4MzA5MW15bmoifQ.2RRhuXBpb2407_1j-YvamA";
+const MAPBOX_ACCESS_TOKEN =
+  "sk.eyJ1IjoibWFyd2FuYWJhcmlzIiwiYSI6ImNtOHE4NDZ1OTBpaWoya3F4MzA5MW15bmoifQ.2RRhuXBpb2407_1j-YvamA";
 
 function Introduction() {
   const fromInputRef = useRef(null);
@@ -45,7 +46,9 @@ function Introduction() {
 
       // Hide the default Geocoder input field (but keep the dropdown functional)
       setTimeout(() => {
-        const geocoderInput = containerRef.current.querySelector(".mapboxgl-ctrl-geocoder input");
+        const geocoderInput = containerRef.current.querySelector(
+          ".mapboxgl-ctrl-geocoder input"
+        );
         if (geocoderInput) {
           geocoderInput.style.display = "none";
         }
@@ -83,7 +86,10 @@ function Introduction() {
           }}
         />
         {/* Geocoder Dropdown Container */}
-        <Box ref={fromContainerRef} sx={{ position: "absolute", top: "100%", left: 0, width: "100%" }} />
+        <Box
+          ref={fromContainerRef}
+          sx={{ position: "absolute", top: "100%", left: 0, width: "100%" }}
+        />
       </Box>
 
       {/* Destination Input */}
@@ -106,7 +112,10 @@ function Introduction() {
           }}
         />
         {/* Geocoder Dropdown Container */}
-        <Box ref={toContainerRef} sx={{ position: "absolute", top: "100%", left: 0, width: "100%" }} />
+        <Box
+          ref={toContainerRef}
+          sx={{ position: "absolute", top: "100%", left: 0, width: "100%" }}
+        />
       </Box>
 
       <Button
