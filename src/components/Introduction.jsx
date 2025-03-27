@@ -81,14 +81,15 @@ function Introduction() {
           placeholder="Current Location"
           fullWidth
           sx={{
-            marginBottom: 2,
+            // marginBottom: 2,
             "& fieldset": { borderRadius: "10px" },
+            visibility: "hidden",
           }}
         />
         {/* Geocoder Dropdown Container */}
         <Box
           ref={fromContainerRef}
-          sx={{ position: "absolute", top: "100%", left: 0, width: "100%" }}
+          sx={{ position: "absolute", top: "0", left: 0, width: "100%" }}
         />
       </Box>
 
@@ -102,6 +103,7 @@ function Introduction() {
           sx={{
             marginBottom: 2,
             "& fieldset": { borderRadius: "10px" },
+            visibility: "hidden",
           }}
           InputProps={{
             startAdornment: (
@@ -114,7 +116,7 @@ function Introduction() {
         {/* Geocoder Dropdown Container */}
         <Box
           ref={toContainerRef}
-          sx={{ position: "absolute", top: "100%", left: 0, width: "100%" }}
+          sx={{ position: "absolute", top: "0", left: 0, width: "100%" }}
         />
       </Box>
 
