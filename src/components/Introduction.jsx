@@ -16,11 +16,28 @@ import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 const MAPBOX_ACCESS_TOKEN =
   "sk.eyJ1IjoibWFyd2FuYWJhcmlzIiwiYSI6ImNtOHE4NDZ1OTBpaWoya3F4MzA5MW15bmoifQ.2RRhuXBpb2407_1j-YvamA";
 
-function Introduction() {
+function Introduction({
+  pickup,
+  dropoff,
+  setPickup,
+  setDropoff,
+  onSubmit,
+  isLoading,
+}) {
   const fromInputRef = useRef(null);
   const toInputRef = useRef(null);
   const fromContainerRef = useRef(null);
   const toContainerRef = useRef(null);
+
+  const [from, setFrom] = React.useState("");
+  const [to, setTo] = React.useState("");
+
+  useEffect(() => {
+    if (from !== "" && to !== "") {
+      console.log("new:from", from);
+      console.log("to", to);
+    }
+  }, [from, to]);
 
   useEffect(() => {
     if (!MAPBOX_ACCESS_TOKEN) return;
@@ -42,6 +59,17 @@ function Introduction() {
       // Listen for a selection and update the input value
       geocoder.on("result", (e) => {
         inputRef.current.value = e.result.place_name;
+        console.log(
+          "inputRef.current.placeholder",
+          inputRef.current.placeholder
+        );
+        if (inputRef.current.placeholder == "Current Location") {
+          setFrom(e.result.place_name);
+          setPickup(e.result.place_name);
+        } else if (inputRef.current.placeholder == "Destination") {
+          setTo(e.result.place_name);
+          setDropoff(e.result.place_name);
+        }
       });
 
       // Hide the default Geocoder input field (but keep the dropdown functional)
@@ -132,8 +160,10 @@ function Introduction() {
           px: "20px",
           my: 2,
         }}
+        disabled={isLoading}
+        onClick={onSubmit}
       >
-        Get Estimates
+        {isLoading ? "Loading..." : "Get Estimates"}
       </Button>
     </Box>
   );
