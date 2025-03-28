@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import {
   Box,
   Typography,
@@ -8,84 +8,14 @@ import {
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
-import mapboxgl from "mapbox-gl";
-import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import { Link } from "react-router-dom";
 
-// Replace with your actual Mapbox Access Token
-const MAPBOX_ACCESS_TOKEN =
-  "sk.eyJ1IjoibWFyd2FuYWJhcmlzIiwiYSI6ImNtOHE4NDZ1OTBpaWoya3F4MzA5MW15bmoifQ.2RRhuXBpb2407_1j-YvamA";
-
-function Introduction({
-  pickup,
-  dropoff,
-  setPickup,
-  setDropoff,
-  onSubmit,
-  isLoading,
-}) {
-  const fromInputRef = useRef(null);
-  const toInputRef = useRef(null);
-  const fromContainerRef = useRef(null);
-  const toContainerRef = useRef(null);
-
-  const [from, setFrom] = React.useState("");
-  const [to, setTo] = React.useState("");
-
-  useEffect(() => {
-    if (from !== "" && to !== "") {
-      console.log("new:from", from);
-      console.log("to", to);
-    }
-  }, [from, to]);
-
-  useEffect(() => {
-    if (!MAPBOX_ACCESS_TOKEN) return;
-
-    const setupGeocoder = (containerRef, inputRef) => {
-      if (!containerRef.current || !inputRef.current) return;
-
-      const geocoder = new MapboxGeocoder({
-        accessToken: MAPBOX_ACCESS_TOKEN,
-        types: "place,postcode,address",
-        marker: false,
-        mapboxgl: mapboxgl,
-        placeholder: inputRef.current.placeholder, // Set placeholder dynamically
-      });
-
-      // Append the Geocoder inside the container
-      containerRef.current.appendChild(geocoder.onAdd());
-
-      // Listen for a selection and update the input value
-      geocoder.on("result", (e) => {
-        inputRef.current.value = e.result.place_name;
-        console.log(
-          "inputRef.current.placeholder",
-          inputRef.current.placeholder
-        );
-        if (inputRef.current.placeholder == "Current Location") {
-          setFrom(e.result.place_name);
-          setPickup(e.result.place_name);
-        } else if (inputRef.current.placeholder == "Destination") {
-          setTo(e.result.place_name);
-          setDropoff(e.result.place_name);
-        }
-      });
-
-      // Hide the default Geocoder input field (but keep the dropdown functional)
-      setTimeout(() => {
-        const geocoderInput = containerRef.current.querySelector(
-          ".mapboxgl-ctrl-geocoder input"
-        );
-        if (geocoderInput) {
-          geocoderInput.style.display = "none";
-        }
-      }, 500);
-    };
-
-    setupGeocoder(fromContainerRef, fromInputRef);
-    setupGeocoder(toContainerRef, toInputRef);
-  }, []);
+function Introduction({ heading = true }) {
+  const rides = [
+    { name: "Bolt", price: "£5.34", cheapest: true, image: "bolt-logo.jpeg" },
+    { name: "Uber", price: "£5.48", cheapest: false, image: "uber-logo.png" },
+    { name: "Lyft", price: "£5.42", cheapest: false, image: "lyft-logo.png" },
+  ];
 
   return (
     <Box sx={{ minWidth: "400px", padding: 4 }}>
@@ -100,38 +30,44 @@ function Introduction({
         ride-sharing apps, such as Uber and Lyft to find you the best possible
         deal on your ride
       </Typography>
-
-      {/* Current Location Input */}
-      <Box sx={{ position: "relative" }}>
+      <Box>
         <TextField
-          inputRef={fromInputRef}
           variant="outlined"
+          // label="From"
           placeholder="Current Location"
-          fullWidth
-          sx={{
-            // marginBottom: 2,
-            "& fieldset": { borderRadius: "10px" },
-            visibility: "hidden",
-          }}
-        />
-        {/* Geocoder Dropdown Container */}
-        <Box
-          ref={fromContainerRef}
-          sx={{ position: "absolute", top: "0", left: 0, width: "100%" }}
-        />
-      </Box>
-
-      {/* Destination Input */}
-      <Box sx={{ position: "relative" }}>
-        <TextField
-          inputRef={toInputRef}
-          variant="outlined"
-          placeholder="Destination"
-          fullWidth
           sx={{
             marginBottom: 2,
-            "& fieldset": { borderRadius: "10px" },
-            visibility: "hidden",
+            marginRight: 4,
+            "& fieldset": {
+              borderTopLeftRadius: "20px",
+              borderTopRightRadius: "20px",
+            },
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": { borderColor: "#6EB995" },
+            },
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <MyLocationIcon sx={{ fill: "#000000" }} />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <TextField
+          variant="outlined"
+          // label="To"
+          placeholder="Destination"
+          sx={{
+            marginBottom: 2,
+            "& fieldset": {
+              borderBottomLeftRadius: "20px",
+              borderBottomRightRadius: "20px",
+            },
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": { borderColor: "#6EB995" },
+              // background: "white",
+            },
           }}
           InputProps={{
             startAdornment: (
@@ -141,29 +77,24 @@ function Introduction({
             ),
           }}
         />
-        {/* Geocoder Dropdown Container */}
-        <Box
-          ref={toContainerRef}
-          sx={{ position: "absolute", top: "0", left: 0, width: "100%" }}
-        />
       </Box>
-
       <Button
         variant="contained"
         sx={{
           bgcolor: "#70B994",
           height: "56px",
+          width: "100px",
           width: "230px",
           fontSize: "18px",
-          fontWeight: "500",
+          fontWeight: "500 !important",
           borderRadius: "10px",
-          px: "20px",
+          px: "20px !important",
           my: 2,
         }}
-        disabled={isLoading}
-        onClick={onSubmit}
       >
-        {isLoading ? "Loading..." : "Get Estimates"}
+        <Link to="/home" style={{ color: "white", textDecoration: "none" }}>
+          Get Estimates
+        </Link>
       </Button>
     </Box>
   );

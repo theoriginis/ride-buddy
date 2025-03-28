@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import Navbar from "../components/Navbar";
-import RideList from "../components/RideList";
+import RideListHomepage from "../components/RideListHomepage";
 import Introduction from "../components/Introduction";
 import About from "../components/About";
 import axios from "axios";
@@ -125,7 +125,11 @@ function LoginPage() {
               zIndex: 1,
             }}
           >
-            <RideList heading={false} homepage={true} rideData={rideData} />
+            <RideListHomepage
+              heading={false}
+              homepage={true}
+              rideData={rideData}
+            />
           </Box>
         )}
       </Box>

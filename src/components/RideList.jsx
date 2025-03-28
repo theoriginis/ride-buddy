@@ -1,7 +1,12 @@
 import React from "react";
-import { Box, Typography, Card, Button } from "@mui/material";
+import { Box, Typography, Card, Button, CircularProgress } from "@mui/material";
 
-function RideList({ heading = true, homepage = false, rideData = [] }) {
+function RideList({
+  heading = true,
+  homepage = false,
+  rideData = [],
+  isLoading = false,
+}) {
   function sortByPrice(data = [], order = "asc") {
     if (!Array.isArray(data)) return []; // Ensure it's an array
     return [...data].sort((a, b) =>
@@ -10,6 +15,19 @@ function RideList({ heading = true, homepage = false, rideData = [] }) {
         : b.total_price - a.total_price
     );
   }
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          width: "400px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
 
   return (
     rideData &&
